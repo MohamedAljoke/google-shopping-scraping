@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import puppeteer, { Page } from 'puppeteer';
 
 export interface IProductInfo {
@@ -23,6 +24,7 @@ export const scrappGoogleShopping = async (
     });
   });
   const productData = await productOnSaleInfo(page, productName);
+  console.log(chalk.magenta(`data scrapped`));
 
   await browser.close();
   return productData;
