@@ -81,5 +81,6 @@ const productOnSaleInfo = async (
       });
     }
   }
+  console.log(listOfPrices);
   return listOfPrices;
 };
