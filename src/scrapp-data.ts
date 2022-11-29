@@ -72,12 +72,14 @@ const productOnSaleInfo = async (
     const priceCurrency = splitedPrice[0];
     const productPrice = `${priceCurrency} ${formatedPrice}`;
     const formattedLink = productLink?.split('/url?url=')[1];
-    listOfPrices.push({
-      name: productName,
-      shop: shopName,
-      price: productPrice,
-      url: formattedLink || '',
-    });
+    if (!productName.includes(productName)) {
+      listOfPrices.push({
+        name: productName,
+        shop: shopName,
+        price: productPrice,
+        url: formattedLink || '',
+      });
+    }
   }
   return listOfPrices;
 };
