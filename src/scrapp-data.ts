@@ -9,7 +9,8 @@ export interface IProductInfo {
 }
 
 export const scrappGoogleShopping = async (
-  productName: string
+  productName: string,
+  choosenMaxValue: string
 ): Promise<IProductInfo[]> => {
   const browser = await puppeteer.launch({ headless: true });
   // default is true
@@ -23,7 +24,11 @@ export const scrappGoogleShopping = async (
       setTimeout(resolve, 1000);
     });
   });
-  const productData = await productOnSaleInfo(page, productName);
+  const productData = await productOnSaleInfo(
+    page,
+    productName,
+    choosenMaxValue
+  );
   console.log(chalk.magenta(`data scrapped`));
 
   await browser.close();
@@ -41,7 +46,8 @@ const searchBoxFillIn = async (page: Page, productName: string) => {
 };
 const productOnSaleInfo = async (
   page: Page,
-  choosenProductName: string
+  choosenProductName: string,
+  choosenMaxValue: string
 ): Promise<IProductInfo[]> => {
   const productCardClass = '.i0X6df';
   const priceClass = '.a8Pemb';
@@ -72,14 +78,22 @@ const productOnSaleInfo = async (
     const priceCurrency = splitedPrice[0];
     const productPrice = `${priceCurrency} ${formatedPrice}`;
     const formattedLink = productLink?.split('/url?url=')[1];
-    console.log(productName);
     if (productName.toLowerCase().includes(choosenProductName.toLowerCase())) {
-      listOfPrices.push({
-        name: productName,
-        shop: shopName,
-        price: productPrice,
-        url: formattedLink || '',
-      });
+      if (choosenMaxValue && formatedPrice <= choosenMaxValue) {
+        listOfPrices.push({
+          name: productName,
+          shop: shopName,
+          price: productPrice,
+          url: formattedLink || '',
+        });
+      } else if (!choosenMaxValue) {
+        listOfPrices.push({
+          name: productName,
+          shop: shopName,
+          price: productPrice,
+          url: formattedLink || '',
+        });
+      }
     }
   }
   console.log(listOfPrices);
