@@ -41,7 +41,7 @@ const searchBoxFillIn = async (page: Page, productName: string) => {
 };
 const productOnSaleInfo = async (
   page: Page,
-  productName: string
+  choosenProductName: string
 ): Promise<IProductInfo[]> => {
   const productCardClass = '.i0X6df';
   const priceClass = '.a8Pemb';
@@ -72,7 +72,8 @@ const productOnSaleInfo = async (
     const priceCurrency = splitedPrice[0];
     const productPrice = `${priceCurrency} ${formatedPrice}`;
     const formattedLink = productLink?.split('/url?url=')[1];
-    if (productName.toLowerCase().includes(productName.toLowerCase())) {
+    console.log(productName);
+    if (productName.toLowerCase().includes(choosenProductName.toLowerCase())) {
       listOfPrices.push({
         name: productName,
         shop: shopName,
@@ -82,5 +83,6 @@ const productOnSaleInfo = async (
     }
   }
   console.log(listOfPrices);
+  console.log(listOfPrices.length);
   return listOfPrices;
 };
