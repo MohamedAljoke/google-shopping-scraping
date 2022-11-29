@@ -72,7 +72,7 @@ const productOnSaleInfo = async (
     const priceCurrency = splitedPrice[0];
     const productPrice = `${priceCurrency} ${formatedPrice}`;
     const formattedLink = productLink?.split('/url?url=')[1];
-    if (!productName.includes(productName)) {
+    if (productName.toLowerCase().includes(productName.toLowerCase())) {
       listOfPrices.push({
         name: productName,
         shop: shopName,
