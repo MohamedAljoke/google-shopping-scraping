@@ -83,6 +83,6 @@ const productOnSaleInfo = async (
     }
   }
   console.log(listOfPrices);
-  console.log(listOfPrices.length);
+  console.log('Number Of Found Elements: ', listOfPrices.length);
   return listOfPrices;
 };
