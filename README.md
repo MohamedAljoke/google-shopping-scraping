@@ -13,7 +13,7 @@ this run a function that calls 3 functions
 
 ps: <--------------- the file is going to data FOLDER ---------->
 
-### User libs
+### Used libs
 
 1. puppeteer for scrapping
 2. XLSX to create csv file
